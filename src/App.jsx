@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import "./App.css";
+import LoginModal from "./components/LoginModal.jsx";
 
 const products = [
   { id: 1, name: "Minimal Sneakers", price: 2499, category: "Fashion", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600", tag: "Bestseller" },
@@ -20,6 +21,20 @@ export default function App() {
   const [category, setCategory] = useState("All");
   const [search, setSearch] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [user, setUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem("forma_user");
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem("forma_user");
+    setUser(null);
+  };
 
   const filteredProducts = products.filter((product) => {
     const matchesCategory =
@@ -81,12 +96,36 @@ export default function App() {
           <a href="#about">About</a>
         </div>
 
-        <button
-          className="cart-button"
-          onClick={() => setCartOpen(true)}
-        >
-          Bag ({totalItems}) 🛍
-        </button>
+        <div className="nav-actions">
+          {user ? (
+            <div className="user-profile">
+              <span className="user-greeting" title={user.email}>
+                👤 {user.name}
+              </span>
+              <button
+                className="logout-button"
+                onClick={handleLogout}
+                title="Sign out"
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <button
+              className="login-nav-button"
+              onClick={() => setLoginOpen(true)}
+            >
+              Sign In
+            </button>
+          )}
+
+          <button
+            className="cart-button"
+            onClick={() => setCartOpen(true)}
+          >
+            Bag ({totalItems}) 🛍
+          </button>
+        </div>
       </nav>
 
       {/* Hero */}
@@ -257,6 +296,13 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Login / Auth Modal */}
+      <LoginModal
+        isOpen={loginOpen}
+        onClose={() => setLoginOpen(false)}
+        onLoginSuccess={(u) => setUser(u)}
+      />
     </div>
   );
 }

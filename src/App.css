@@ -63,11 +63,75 @@ a {
   color: #b47d51;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.login-nav-button {
+  border: 1px solid transparent;
+  padding: 10px 18px;
+  background: #f7f5f2;
+  color: #25251f;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.login-nav-button:hover {
+  background: #25251f;
+  color: #fff;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f7f5f2;
+  padding: 6px 14px;
+  border-radius: 30px;
+  border: 1px solid #eee;
+}
+
+.user-greeting {
+  font-size: 13px;
+  font-weight: 600;
+  color: #25251f;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logout-button {
+  border: none;
+  background: none;
+  color: #a07854;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.logout-button:hover {
+  color: #805836;
+}
+
 .cart-button {
   border: 1px solid #25251f;
   padding: 11px 20px;
   background: white;
   border-radius: 30px;
+  transition: all 0.15s ease;
+}
+
+.cart-button:hover {
+  background: #25251f;
+  color: white;
 }
 
 .hero {
